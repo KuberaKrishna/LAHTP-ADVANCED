@@ -1,7 +1,7 @@
 from sys import argv
 from argparse import ArgumentParser
 
-import portFunc, bannerFunc, messageFunc
+import portFunc, bannerFunc, tcpcs, messageFunc
 
 messageFunc.welcomeMsg()
 
@@ -30,6 +30,11 @@ def bannerGrabber (ip, port):
     else:
         messageFunc.unwantedOpt()
 
+def tcpClientAndServer(ip, port):
+    if tcpcs.checkPort(port):
+        messageFunc.serverInit('TCP')
+        tcpcs.socketConnectionStream(ip, port)
+
 def distributingFunction(options):
     match options:
         case 0:
@@ -37,8 +42,7 @@ def distributingFunction(options):
         case 1:
             bannerGrabber(args.ip, args.p)
         case 2:
-            # TCP Client and Server
-            pass
+            tcpClientAndServer(args.ip, args.p)
         case 3:
             # UDP Client and Server
             pass

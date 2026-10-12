@@ -13,7 +13,9 @@
 ## ⚙️ Before that ...
 * You need to install `pyfiglet` and `csv` module.
 * To install a module, use: `pip3 install <module_name>`.
+* `Read all the instructions properly.`
 
+# Instructions
 ## 0. Port Scanner
 * This is scan is noisy, supports only TCP connect scans, which works by completing the TCP 3-way handshake.
 * This will by default try to connect all the ports, if `-p` and `-F` is not mentioned.
@@ -29,7 +31,7 @@ python3 <program_name.py> 0 IP or python3 <program_name.py> 0 IP -p-| It scans a
 python3 <program_name.py> 0 IP -F | It scans 100 most common ports.
 python3 <program_name.py> 0 IP -p22| It scans only a single port.
 python3 <program_name.py> 0 IP -p5000,22,5432| It scans only the given list of port.
-python3 <program_name.py> 0 IP -p 1-1025 | It scans only the specified range of ports.
+python3 <program_name.py> 0 IP -p1-1025 | It scans only the specified range of ports.
 
 ## 1. Banner Grabber
 * This tool connects to a network service and retrieves its banner or response to identify the service and software running on a port, and sometimes its version.
@@ -44,6 +46,17 @@ python3 <program_name.py> 0 IP -p 1-1025 | It scans only the specified range of 
 Example Command | Purpose
 -|-
 python3 <program_name.py> 1 IP or python3 <program_name.py> 1 IP -p-| It connects all the port and retrieve banner(if available)
-python3 <program_name.py> 1 IP -p80| It grabs the banner from a single port.
-python3 <program_name.py> 1 IP -p143,179,110| It grabs the banner from the given list of port.
+python3 <program_name.py> 1 IP -p 80| It grabs the banner from a single port.
+python3 <program_name.py> 1 IP -p 143,179,110| It grabs the banner from the given list of port.
 python3 <program_name.py> 1 IP -p 443-65436 | It grabs the banner from the specified range of ports.
+
+## 2. TCP Client/Server
+* TCP is connection-oriented: it sets up a connection first and ensures data arrives reliably and in order.
+* A simple TCP client-server program where the server receives and prints messages sent by the client.
+* Only one client can communicate with the server at a time.
+* Client can type `'/exit'` or `'/quit'` to leave the server.
+
+### Usage
+Example Command | Purpose
+-|-
+python3 <program_name.py> 2 IP -p6789| This prompts the user to choose whether to start the client or server on the specified port.
