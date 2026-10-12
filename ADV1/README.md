@@ -71,3 +71,15 @@ python3 <program_name.py> 2 IP -p6789| This prompts the user to choose whether t
 Example Command | Purpose
 -|-
 python3 <program_name.py> 3 IP -p6556| This prompts the user to choose whether to start the client or server on the specified port.
+
+### 4. Chat Application
+* Created a simple chat application(TCP, obviously) using socket programming and multithreading.
+* Multiple users can communicate with other connected clients. Users can set a nickname to be identified by others or type `'/skip'` to remain anonymous. Other users in the chat will see them as `(Anonymous)`.
+* If you don't see any prompt, press Enter.
+* Connected clients can see which users have joined or left the server. The server also maintains a log of these events, but the logs are not stored permanently.
+* Clients can type `'/exit'` or `'/quit'` to leave the chat.
+
+#### Usage
+Example Command | Purpose
+-|-
+python3 <program_name.py> 4 IP -p8888| This prompts the user to choose whether to start the client or server on the specified port.

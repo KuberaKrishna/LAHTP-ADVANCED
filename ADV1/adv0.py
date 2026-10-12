@@ -1,7 +1,7 @@
 from sys import argv
 from argparse import ArgumentParser
 
-import portFunc, bannerFunc, tcpcs, udpcs, messageFunc
+import portFunc, bannerFunc, tcpcs, udpcs, chatcs, messageFunc
 
 messageFunc.welcomeMsg()
 
@@ -40,6 +40,11 @@ def udpClientAndServer(ip, port):
         messageFunc.serverInit('UDP')
         udpcs.socketConnectionGram(ip, port)
 
+def chatClientAndServer(ip, port):
+    if tcpcs.checkPort(port):
+        messageFunc.serverInit('Multi Client Chat')
+        chatcs.ChatServerAndClient(ip, port)
+
 def distributingFunction(options):
     match options:
         case 0:
@@ -51,8 +56,7 @@ def distributingFunction(options):
         case 3:
             udpClientAndServer(args.ip, args.p)
         case 4:
-            # Chat Application
-            pass
+            chatClientAndServer(args.ip, args.p)
 
 if len(argv) <= 1:
     messageFunc.toolKit()

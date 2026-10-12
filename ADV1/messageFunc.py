@@ -1,6 +1,6 @@
 from pyfiglet import figlet_format
 
-from dec import RED, GREEN, YELLOW, LIGHT_RED, LIGHT_BLUE, LIGHT_GREEN, LIGHT_YELLOW, BOLD, BLINK, END
+from dec import RED, GREEN, YELLOW, LIGHT_RED, LIGHT_GREEN, LIGHT_BLUE, LIGHT_YELLOW, BOLD, BLINK, END
 # All these functions are used to avoid repeating the `print` statement multiple times.
 ## General Message
 
