@@ -1,0 +1,100 @@
+1,tcp,tcpmux
+7,tcp/UDP,Echo
+9,tcp/UDP,Discard
+13,tcp/UDP,Daytime
+19,tcp/UDP,Chargen
+20,tcp,FTP (Data)
+21,tcp,FTP (Control)
+22,tcp,SSH
+23,tcp,Telnet
+25,tcp,SMTP
+37,tcp/UDP,Time
+42,tcp/UDP,Nameserver
+43,tcp,Whois
+49,tcp/UDP,TACACS+
+53,tcp/UDP,DNS
+67,UDP,DHCP (Server)
+68,UDP,DHCP (Client)
+69,UDP,TFTP
+70,tcp,Gopher
+79,tcp,Finger
+80,tcp,HTTP
+88,tcp/UDP,Kerberos
+102,tcp,ISO-TSAP
+110,tcp,POP3
+111,tcp/UDP,RPCbind
+113,tcp,Ident
+119,tcp,NNTP
+123,UDP,NTP
+135,tcp/UDP,MSRPC
+137,UDP,NetBIOS-NS
+138,UDP,NetBIOS-DGM
+139,tcp,NetBIOS-SSN
+143,tcp,IMAP
+161,UDP,SNMP
+162,UDP,SNMP-Trap
+177,tcp/UDP,XDMCP
+179,tcp,BGP
+201,tcp/UDP,AppleTalk
+264,tcp,BGMP
+318,tcp/UDP,TSP
+389,tcp/UDP,LDAP
+443,tcp,HTTPS
+445,tcp,Microsoft-DS (SMB)
+465,tcp,SMTPS
+500,UDP,ISAKMP
+512,tcp,Rexec
+513,tcp,Rlogin
+514,UDP,Syslog
+515,tcp,LPD
+520,UDP,RIP
+548,tcp,AFP
+554,tcp/UDP,RTSP
+563,tcp/UDP,NNTPS
+587,tcp,SMTP (Submission)
+631,tcp/UDP,IPP
+636,tcp/UDP,LDAPS
+873,tcp,Rsync
+990,tcp,FTPS
+993,tcp,IMAPS
+995,tcp,POP3S
+1025,tcp,NFS-or-CustomRPC
+1080,tcp,SOCKS Proxy
+1194,tcp/UDP,OpenVPN
+1433,tcp,MSSQL
+1434,UDP,MSSQL-Monitor
+1521,tcp,Oracle TNS
+1723,tcp,PPTP
+1812,UDP,RADIUS-Auth
+1813,UDP,RADIUS-Acct
+2049,tcp/UDP,NFS
+2121,tcp,CCProxy
+3128,tcp,Squid Proxy
+3306,tcp,MySQL
+3389,tcp,RDP
+4444,tcp,Metasploit Listener
+4848,tcp,GlassFish Admin
+5000,tcp,UPnP / Flask
+5432,tcp,PostgreSQL
+5631,tcp,pcAnywhere
+5800,tcp,VNC-Web
+5900,tcp,VNC-Server
+5985,tcp,WinRM-HTTP
+5986,tcp,WinRM-HTTPS
+6000,tcp,X11
+6112,tcp,Battle.net
+6379,tcp,Redis
+7001,tcp,WebLogic
+8000,tcp,HTTP-Alt / Dev
+8008,tcp,HTTP-Alt
+8080,tcp,Apache Tomcat / Proxy
+8443,tcp,HTTPS-Alt
+8888,tcp,HTTP-Alt / News
+9000,tcp,PHP-FPM / SonarQube
+9100,tcp,Jetdirect
+10000,tcp,Webmin
+27017,tcp,MongoDB
+32400,tcp,Plex Media Server
+49152,tcp,Windows RPC Dynamic
+49154,tcp,Windows RPC Dynamic
+65436,tcp,Unassigned / Dynamic Dynamic
