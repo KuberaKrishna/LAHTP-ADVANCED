@@ -1,7 +1,7 @@
 from sys import argv
 from argparse import ArgumentParser
 
-import portFunc, messageFunc
+import portFunc, bannerFunc, messageFunc
 
 messageFunc.welcomeMsg()
 
@@ -18,13 +18,24 @@ def portScanner(ip, port):
             portFunc.customScan(ip, port)
         portFunc.printEnd()
 
+def bannerGrabber (ip, port):
+    if not args.p and not args.F:
+        bannerFunc.printHeader(ip)
+        bannerFunc.allBannerGrabber(ip)
+        bannerFunc.printEnd()
+    elif not args.F:
+        bannerFunc.printHeader(ip)
+        bannerFunc.customGrabber(ip, port)
+        bannerFunc.printEnd()
+    else:
+        messageFunc.unwantedOpt()
+
 def distributingFunction(options):
     match options:
         case 0:
             portScanner(args.ip, args.p)
         case 1:
-            # Banner Grabber
-            pass
+            bannerGrabber(args.ip, args.p)
         case 2:
             # TCP Client and Server
             pass
