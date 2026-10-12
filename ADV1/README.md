@@ -60,3 +60,14 @@ python3 <program_name.py> 1 IP -p 443-65436 | It grabs the banner from the speci
 Example Command | Purpose
 -|-
 python3 <program_name.py> 2 IP -p6789| This prompts the user to choose whether to start the client or server on the specified port.
+
+## 3. UDP Client/Server
+* UDP is connectionless: no handshake, no delivery guarantee. 
+* A simple UDP client-server program in which the server receives and prints messages sent by the client.
+* Only one client can communicate with the server at a time, and communication is possible even when no server is running(in which case the data is simply lost).
+* Client can type `'/exit'` or `'/quit'` to leave the server.
+
+### Usage
+Example Command | Purpose
+-|-
+python3 <program_name.py> 3 IP -p6556| This prompts the user to choose whether to start the client or server on the specified port.
