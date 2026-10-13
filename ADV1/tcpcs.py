@@ -28,14 +28,17 @@ def socketConnectionStream(ip, port):
         messageFunc.serviceList()
         try:
             try:
-                options = int(input(">> "))
-                match options:
-                    case 1:
-                        socketServer(host_port)
-                    case 2:
-                        clientSocket(host_port)
-                    case _:
-                        messageFunc.invalidOpt()
+                try:
+                    options = int(input(">> "))
+                    match options:
+                        case 1:
+                            socketServer(host_port)
+                        case 2:
+                            clientSocket(host_port)
+                        case _:
+                            messageFunc.invalidOpt()
+                except EOFError:
+                    messageFunc.toolKitAborted()
             except ValueError:
                 messageFunc.invalidOpt()
         except KeyboardInterrupt:
@@ -63,7 +66,7 @@ def socketServer(host_port):
                             break
                         message = data.decode().rstrip()
                         messageFunc.receivedMsg(client_address[0], message)
-                    print(f"\nThe client [{host_port[0]}] has disconnected from the server.")
+                    print(f"\nThe client [{client_address[0]}] has disconnected from the server.")
                     messageFunc.serverShutting('TCP')
             except KeyboardInterrupt:
                 messageFunc.serverShutting('TCP')

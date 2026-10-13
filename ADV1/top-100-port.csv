@@ -74,7 +74,7 @@
 3389,tcp,RDP
 4444,tcp,Metasploit Listener
 4848,tcp,GlassFish Admin
-5000,tcp,UPnP / Flask
+5000,tcp,UPnP/Flask
 5432,tcp,PostgreSQL
 5631,tcp,pcAnywhere
 5800,tcp,VNC-Web
@@ -85,16 +85,16 @@
 6112,tcp,Battle.net
 6379,tcp,Redis
 7001,tcp,WebLogic
-8000,tcp,HTTP-Alt / Dev
+8000,tcp,HTTP-Alt/Dev
 8008,tcp,HTTP-Alt
-8080,tcp,Apache Tomcat / Proxy
+8080,tcp,Apache Tomcat/Proxy
 8443,tcp,HTTPS-Alt
-8888,tcp,HTTP-Alt / News
-9000,tcp,PHP-FPM / SonarQube
+8888,tcp,HTTP-Alt/News
+9000,tcp,PHP-FPM/SonarQube
 9100,tcp,Jetdirect
 10000,tcp,Webmin
 27017,tcp,MongoDB
 32400,tcp,Plex Media Server
 49152,tcp,Windows RPC Dynamic
 49154,tcp,Windows RPC Dynamic
-65436,tcp,Unassigned / Dynamic Dynamic
+65436,tcp,Unassigned/Dynamic Dynamic

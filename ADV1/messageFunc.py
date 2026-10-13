@@ -1,18 +1,28 @@
-from pyfiglet import figlet_format
-
-from dec import RED, GREEN, YELLOW, LIGHT_RED, LIGHT_GREEN, LIGHT_BLUE, LIGHT_YELLOW, BOLD, BLINK, END
+from dec import RED, GREEN, YELLOW, LIGHT_RED, LIGHT_GREEN, LIGHT_BLUE, LIGHT_YELLOW, LIGHT_GRAY, BOLD, BLINK, END
 # All these functions are used to avoid repeating the `print` statement multiple times.
-## General Message
 
+## General Message
 def welcomeMsg():
-        welcome_msg = figlet_format("Python3 Socket Toolkit")
-        print("+-"*40,end="+\n")
-        print(f"{welcome_msg}")
-        print("+-"*40,end="+\n")
+    print(f"\n{LIGHT_GRAY} ██████ ▄████▄ ▄█████ ██  ██ ▄█████ ▄████▄{END}")
+    print(f"{LIGHT_GRAY} █▄▄▄▄▄ ██  ██ ██     ██▄█▀  ██▄▄     ██ {END}")
+    print(f"{LIGHT_GRAY} ▀▀▀▀██ ██  ██ ██     ██▀█▄  ██▀▀     ██ {END}")
+    print(f"{LIGHT_GRAY} ██████ ▀████▀ ▀█████ ██  ██ ▀█████   ██ {END}\n")
+    print(f"{LIGHT_GRAY} ▄████▄ ▄████▄ ▄████▄ ▄█████ ▄████▄   ███   ▄█▄ ▄█▄ ▄█▄ ▄█▄  ██ ▄█▄  █▄ ▄█████{END}")
+    print(f"{LIGHT_GRAY} ██  ██ ██  ██ ██  ██ ██ ▄▄▄ ██  ██  ██ ██  ██▀█▀██ ██▀█▀██  ██ ██▀█ ██ ██ ▄▄▄{END}")
+    print(f"{LIGHT_GRAY} █████▀ █████▀ ██  ██ ██ ▀ █ █████▀ ██▀▀▀██ ██ ▀ ██ ██ ▀ ██  ██ ██ █▄██ ██ ▀ █{END}")
+    print(f"{LIGHT_GRAY} ██     ██ ▀█▄ ▀████▀ ▀█████ ██ ▀█▄  ██ ██  ▀█   █▀ ▀█   █▀  ██ ▀█  ██▀ ▀█████{END}\n")
+    print(f"{LIGHT_GRAY} ▄████▄ ▄████▄ ▄████▄ ▄█     ██  ██  ██ ▄████▄{END}")
+    print(f"{LIGHT_GRAY}   ██   ██  ██ ██  ██ ██     ██▄█▀   ██   ██ {END}")
+    print(f"{LIGHT_GRAY}   ██   ██  ██ ██  ██ ██     ██▀█▄   ██   ██ {END}")
+    print(f"{LIGHT_GRAY}   ██   ▀████▀ ▀████▀ ▀█████ ██  ██  ██   ██  v0.1{END}\n")
 
 def toolKit():
-    print(f"\n\n{BOLD}[0] Port Scanner\n[1] Banner Grabber\n[2] TCP Client/Server\n[3] UDP Client/Server\n[4] Chat Application\n\n{END}")
-
+    available_toolkit=["[0] Port Scanner", "[1] Banner Grabber", "[2] TCP Client/Server", "[3] UDP Client/Server", "[4] Chat Application"]
+    print(f"\n\n {BOLD}Select one of the options:{END}")
+    for tool in available_toolkit:
+        print(f"   {BOLD}{tool}{END}")
+    print()
+    
 def invalidArg():
     print()
     print("x-"*26, end="x\n")
@@ -29,6 +39,16 @@ def unwantedOpt():
     print('*-'*27, end="*\n")
     print(f"\n\t{LIGHT_YELLOW}Unwanted options were specified ['-F'].{END}\n")
     print('*-'*27, end="*\n\n")
+
+def serviceList():
+    print(f"\n{BOLD}[1]Server Listening\n[2]Client Connecting{END}\n")
+
+def toolKitAborted():
+    print()
+    print('x-'*17, end="x\n")
+    print(f'\n\t{RED}Toolkit {BLINK}aborted!!{END}\n')
+    print('x-'*17, end="x\n\n")
+
 
 ## Port Message
 def registeredPort(port_no):
@@ -49,9 +69,9 @@ def invalidPort():
     print('x-'*35, end="x\n\n")
 
 def portGreater(s_port, e_port):
-    print('x-'*27, end="x\n")
-    print(f"\n\t{LIGHT_RED}[{s_port}] is greater than [{e_port}]{END}\n")
-    print('x-'*27, end="x\n\n")
+    print('x-'*32, end="x\n")
+    print(f"\n\t{LIGHT_RED}Starting port [{s_port}] is greater than [{e_port}] ending.{END}\n")
+    print('x-'*32, end="x\n\n")
 
 def noPortMentioned():
     print()
@@ -59,11 +79,6 @@ def noPortMentioned():
     print(f"\n\t{RED}Check whether a port is mentioned.{END}\n")
     print('x-'*25, end="x\n\n")
 
-def toolKitAborted():
-    print()
-    print('x-'*17, end="x\n")
-    print(f'\n\t{RED}Toolkit {BLINK}aborted!!{END}\n')
-    print('x-'*17, end="x\n\n")
 
 ## IP Message
 def invalidIP():
@@ -72,11 +87,8 @@ def invalidIP():
     print(f"\n\t{RED}IPv4 address specified must be between 0 and 255,\n\t\tshould only be numbers.\n\t\t\t{BLINK}QUITTING!{END}\n")
     print('x-'*32, end="x\n\n")
 
-def serviceList():
-    print(f"\n{BOLD}[1]Server Listening\n[2]Client Connecting{END}\n")
 
 ## Server Message
-
 def serverInit(name):
     print()
     print('#-'*27, end="#\n")
@@ -84,7 +96,7 @@ def serverInit(name):
     print('#-'*27, end="#\n")
 
 def serverListening(name, host_port):
-    print(f"\n{GREEN}{name} Server Started Listening on {host_port[0]} {host_port[1]}{END}")
+    print(f"\n{GREEN}{name} Server Started Listening on {host_port[0]} {host_port[1]}{END}\n")
 
 def receivedMsg(client_address, message):
     print(f"Received from [{client_address}]: {message}")
@@ -105,6 +117,7 @@ def serverShutting(name):
     print('x-'*27, end="x\n")
     print(f"\n\t{LIGHT_GREEN}{name} server shutting down ...{END}\n")
     print('x-'*27, end="x\n\n")
+
 
 ## Client Message
 def clientQuit(host_port):

@@ -1,29 +1,30 @@
 from sys import argv
 from argparse import ArgumentParser
 
+# Below modules are created by the author.
 import portFunc, bannerFunc, tcpcs, udpcs, chatcs, messageFunc
 
 messageFunc.welcomeMsg()
 
 def portScanner(ip, port):
-    if args.F and args.p:
+    if args.Fast and args.port:
         messageFunc.unwantedOpt()
     else:
         portFunc.printHeader(ip)
-        if not args.p and not args.F:
+        if not args.port and not args.Fast:
             portFunc.allPort(ip)
-        elif args.F and not args.p:
+        elif args.Fast and not args.port:
             portFunc.fastMode(ip)
         else:
             portFunc.customScan(ip, port)
         portFunc.printEnd()
 
 def bannerGrabber (ip, port):
-    if not args.p and not args.F:
+    if not args.port and not args.Fast:
         bannerFunc.printHeader(ip)
         bannerFunc.allBannerGrabber(ip)
         bannerFunc.printEnd()
-    elif not args.F:
+    elif not args.Fast:
         bannerFunc.printHeader(ip)
         bannerFunc.customGrabber(ip, port)
         bannerFunc.printEnd()
@@ -48,31 +49,30 @@ def chatClientAndServer(ip, port):
 def distributingFunction(options):
     match options:
         case 0:
-            portScanner(args.ip, args.p)
+            portScanner(args.ip, args.port)
         case 1:
-            bannerGrabber(args.ip, args.p)
+            bannerGrabber(args.ip, args.port)
         case 2:
-            tcpClientAndServer(args.ip, args.p)
+            tcpClientAndServer(args.ip, args.port)
         case 3:
-            udpClientAndServer(args.ip, args.p)
+            udpClientAndServer(args.ip, args.port)
         case 4:
-            chatClientAndServer(args.ip, args.p)
+            chatClientAndServer(args.ip, args.port)
+        case _:
+            messageFunc.invalidArg()
 
 if len(argv) <= 1:
     messageFunc.toolKit()
 
-parser = ArgumentParser()
-parser.add_argument("o", type=int, help="Used for selecting tools from [0-4]")
-parser.add_argument("ip", help="Used to specify IPv4 Address")
-parser.add_argument("-p", help="Used to specify Port number")
-parser.add_argument("-F", help="Scan 100 most common ports, instead of all", action="store_true")
+parser = ArgumentParser(description="A simple Socket Programming Toolkit.")
+parser.add_argument("options", type=int, help="Used for selecting tools from [0-4].")
+parser.add_argument("ip", help="Used to specify IPv4 Address.")
+parser.add_argument("-p","--port", help="Used to specify Port number.")
+parser.add_argument("-F", "--Fast", help="Scan 100 most common ports, instead of all.", action="store_true")
 args = parser.parse_args()
-options = args.o
+options = args.options
 
-if options <= 4 and options >= 0:
-    if portFunc.checkIpAddress(args.ip):
-        distributingFunction(options)
-    else:
-        messageFunc.invalidIP()
+if portFunc.checkIpAddress(args.ip):
+    distributingFunction(options)
 else:
-    messageFunc.invalidArg()
+    messageFunc.invalidIP()

@@ -17,14 +17,17 @@ def ChatServerAndClient(ip, port):
         messageFunc.serviceList()
         try:
             try:
-                options = int(input(">> "))
-                match options:
-                    case 1:
-                        chatServer(host_port)
-                    case 2:
-                        chatClient(host_port)
-                    case _:
-                        messageFunc.invalidOpt()
+                try:
+                    options = int(input(">> "))
+                    match options:
+                        case 1:
+                            chatServer(host_port)
+                        case 2:
+                            chatClient(host_port)
+                        case _:
+                            messageFunc.invalidOpt()
+                except EOFError:
+                    messageFunc.toolKitAborted()
             except ValueError:
                 messageFunc.invalidOpt()
         except KeyboardInterrupt:

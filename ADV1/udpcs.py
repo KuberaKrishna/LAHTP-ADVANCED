@@ -2,6 +2,7 @@ from socket import socket, AF_INET, SOCK_DGRAM
 
 # Below modules are created by the author.
 from tcpcs import checkPort
+from dec import LIGHT_WHITE, END
 import messageFunc
 
 BUFFER=2048
@@ -15,21 +16,24 @@ def socketConnectionGram(ip, port):
         messageFunc.serviceList()
         try:
             try:
-                options = int(input(">> "))
-                match options:
-                    case 1:
-                        socketServer(host_port)
-                    case 2:
-                        clientSocket(host_port)
-                    case _:
-                        messageFunc.invalidOpt()
+                try:
+                    options = int(input(">> "))
+                    match options:
+                        case 1:
+                            socketServer(host_port)
+                        case 2:
+                            clientSocket(host_port)
+                        case _:
+                            messageFunc.invalidOpt()
+                except EOFError:
+                    messageFunc.toolKitAborted()
             except ValueError:
                 messageFunc.invalidOpt()
         except KeyboardInterrupt:
             messageFunc.toolKitAborted()
 # Socket Code
 
-## Server Socket code  
+## Server Socket code
 def socketServer(host_port):
     try:
         try:
@@ -50,10 +54,11 @@ def socketServer(host_port):
 
 ## Client socket code
 def clientSocket(host_port):
+    print()
     try:
         with socket(AF_INET, SOCK_DGRAM) as client_socket:
             while True:
-                data = input("Enter something: ")
+                data = input(f"{LIGHT_WHITE}Enter something:{END} ")
                 if data.lower() == "/quit" or data.lower() == '/exit':
                     break
                 client_socket.sendto(data.encode('utf-8'), host_port)

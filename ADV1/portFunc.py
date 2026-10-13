@@ -107,8 +107,8 @@ def portScan(ip, port):
 ## This scan will scan the 100 most common port.
 def fastMode(ip):
     with open(PORTS_100_FILE, newline='') as csvfile:
-        file = reader(csvfile)
-        for port in file:
+        port_svc_file = reader(csvfile)
+        for port in port_svc_file:
             portScan(ip, port[0])
 
 ## This scan will try to connect all the available ports.
@@ -158,7 +158,7 @@ def known100ports(port_no):
 def printResult(ports):
     row = known100ports(ports)
     if row != None:
-        print(f"{LIGHT_WHITE}{row[0]}/{row[1]} | open | {row[2]}{END}")
+        print(f"{LIGHT_WHITE}{ports}/{row[1]} | open | {row[2]}{END}")
     elif row == None:
         print(f"{LIGHT_WHITE}{ports}  | open | unknown{END}")
 
