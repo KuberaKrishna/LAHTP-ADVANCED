@@ -90,7 +90,7 @@ def chatServer(host_port):
                     CLIENT_LIST.append(self.c_socket)
 
                 print(f"[{self.c_name}] joined from {self.c_address[0]}:{self.c_address[1]}")
-                self.c_socket.sendall(f"Welcome to chat server {self.c_name}! Type a message and click Enter.\nType quit or exit to leave the chat.\n\n".encode())
+                self.c_socket.sendall(f"Welcome to chat server {self.c_name}! Type a message and click Enter.\nType /quit or /exit to leave the chat.\n\n".encode())
                 broadcastMsg(f'*** {self.c_name} has joined the chat ***', self.c_socket)
 
                 while True:
