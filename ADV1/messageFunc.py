@@ -1,127 +1,190 @@
-from dec import RED, GREEN, YELLOW, LIGHT_RED, LIGHT_GREEN, LIGHT_BLUE, LIGHT_YELLOW, LIGHT_GRAY, BOLD, BLINK, END
-# All these functions are used to avoid repeating the `print` statement multiple times.
+from dec import (
+    BLINK,
+    BOLD,
+    END,
+    GREEN,
+    LIGHT_BLUE,
+    LIGHT_GRAY,
+    LIGHT_GREEN,
+    LIGHT_RED,
+    LIGHT_YELLOW,
+    RED,
+    YELLOW,
+)
 
-## General Message
+# All these functions
+# are used to avoid repeating
+# the `print` statement multiple times.
+
+
+# General Message
 def welcomeMsg():
-    print(f"\n{LIGHT_GRAY} ██████ ▄████▄ ▄█████ ██  ██ ▄█████ ▄████▄{END}")
-    print(f"{LIGHT_GRAY} █▄▄▄▄▄ ██  ██ ██     ██▄█▀  ██▄▄     ██ {END}")
-    print(f"{LIGHT_GRAY} ▀▀▀▀██ ██  ██ ██     ██▀█▄  ██▀▀     ██ {END}")
-    print(f"{LIGHT_GRAY} ██████ ▀████▀ ▀█████ ██  ██ ▀█████   ██ {END}\n")
-    print(f"{LIGHT_GRAY} ▄████▄ ▄████▄ ▄████▄ ▄█████ ▄████▄   ███   ▄█▄ ▄█▄ ▄█▄ ▄█▄  ██ ▄█▄  █▄ ▄█████{END}")
-    print(f"{LIGHT_GRAY} ██  ██ ██  ██ ██  ██ ██ ▄▄▄ ██  ██  ██ ██  ██▀█▀██ ██▀█▀██  ██ ██▀█ ██ ██ ▄▄▄{END}")
-    print(f"{LIGHT_GRAY} █████▀ █████▀ ██  ██ ██ ▀ █ █████▀ ██▀▀▀██ ██ ▀ ██ ██ ▀ ██  ██ ██ █▄██ ██ ▀ █{END}")
-    print(f"{LIGHT_GRAY} ██     ██ ▀█▄ ▀████▀ ▀█████ ██ ▀█▄  ██ ██  ▀█   █▀ ▀█   █▀  ██ ▀█  ██▀ ▀█████{END}\n")
-    print(f"{LIGHT_GRAY} ▄████▄ ▄████▄ ▄████▄ ▄█     ██  ██  ██ ▄████▄{END}")
-    print(f"{LIGHT_GRAY}   ██   ██  ██ ██  ██ ██     ██▄█▀   ██   ██ {END}")
-    print(f"{LIGHT_GRAY}   ██   ██  ██ ██  ██ ██     ██▀█▄   ██   ██ {END}")
-    print(f"{LIGHT_GRAY}   ██   ▀████▀ ▀████▀ ▀█████ ██  ██  ██   ██  v0.1{END}\n")
+    print(f"{LIGHT_GRAY} ██████ ▄████▄ ▄█████ ██  ██ ▄█████ ▄████▄")
+    print(" █▄▄▄▄▄ ██  ██ ██     ██▄█▀  ██▄▄     ██ ")
+    print(" ▀▀▀▀██ ██  ██ ██     ██▀█▄  ██▀▀     ██")
+    print(" ██████ ▀████▀ ▀█████ ██  ██ ▀█████   ██")
+    print()
+    print(
+        " ▄████▄ ▄████▄ ▄████▄ ▄█████"
+        "▄████▄   ███   ▄█▄ ▄█▄ ▄█▄ ▄█▄ "
+        "██ ▄█▄  █▄ ▄█████"
+    )
+    print(
+        " ██  ██ ██  ██ ██  ██ ██ ▄▄▄"
+        "██  ██  ██ ██  ██▀█▀██ ██▀█▀██ "
+        "██ ██▀█ ██ ██ ▄▄▄"
+    )
+    print(
+        " █████▀ █████▀ ██  ██ ██ ▀ █"
+        "█████▀ ██▀▀▀██ ██ ▀ ██ ██ ▀ ██ "
+        "██ ██ █▄██ ██ ▀ █"
+    )
+    print(
+        " ██     ██ ▀█▄ ▀████▀ ▀█████"
+        "██ ▀█▄  ██ ██  ▀█   █▀ ▀█   █▀ "
+        "██ ▀█  ██▀ ▀█████"
+    )
+    print()
+    print(" ▄████▄ ▄████▄ ▄████▄ ▄█     ██  ██  ██ ▄████▄")
+    print("   ██   ██  ██ ██  ██ ██     ██▄█▀   ██   ██")
+    print("   ██   ██  ██ ██  ██ ██     ██▀█▄   ██   ██")
+    print(f"   ██   ▀████▀ ▀████▀ ▀█████ ██  ██  ██   ██{END}")
+
 
 def toolKit():
-    available_toolkit=["[0] Port Scanner", "[1] Banner Grabber", "[2] TCP Client/Server", "[3] UDP Client/Server", "[4] Chat Application"]
+    available_toolkit = [
+        "[0] Port Scanner",
+        "[1] Banner Grabber",
+        "[2] TCP Client/Server",
+        "[3] UDP Client/Server",
+        "[4] Chat Application",
+    ]
     print(f"\n\n {BOLD}Select one of the options:{END}")
     for tool in available_toolkit:
         print(f"   {BOLD}{tool}{END}")
     print()
-    
+
+
 def invalidArg():
     print()
-    print("x-"*26, end="x\n")
+    print("x-" * 26, end="x\n")
     print(f"\n\t{RED}Invalid arguement valued passed!{END}\n")
-    print("x-"*26, end="x\n\n")
+    print("x-" * 26, end="x\n\n")
+
 
 def invalidOpt():
     print()
-    print("x-"*24, end="x\n")
+    print("x-" * 24, end="x\n")
     print(f"\n\t{RED}Invalid options valued passed!{END}\n")
-    print("x-"*24, end="x\n\n")
+    print("x-" * 24, end="x\n\n")
+
 
 def unwantedOpt():
-    print('*-'*27, end="*\n")
+    print("*-" * 27, end="*\n")
     print(f"\n\t{LIGHT_YELLOW}Unwanted options were specified ['-F'].{END}\n")
-    print('*-'*27, end="*\n\n")
+    print("*-" * 27, end="*\n\n")
+
 
 def serviceList():
     print(f"\n{BOLD}[1]Server Listening\n[2]Client Connecting{END}\n")
 
+
 def toolKitAborted():
     print()
-    print('x-'*17, end="x\n")
-    print(f'\n\t{RED}Toolkit {BLINK}aborted!!{END}\n')
-    print('x-'*17, end="x\n\n")
+    print("x-" * 17, end="x\n")
+    print(f"\n\t{RED}Toolkit {BLINK}aborted!!{END}\n")
+    print("x-" * 17, end="x\n\n")
 
 
-## Port Message
+# Port Message
 def registeredPort(port_no):
     print()
-    print('x-'*35, end="x\n")
-    print(f"\n\t{RED}Server didn't start! You mentioned well-known port '{port_no}'\n\t\tthat you don't have permission to use.{END}\n")
-    print('x-'*35, end="x\n\n")
+    print("x-" * 35, end="x\n")
+    print(f"\n\t{RED}Server didn't start! You mentioned well-known port '\
+        {port_no}'\n\t\tthat you don't have permission to use.{END}\n")
+    print("x-" * 35, end="x\n\n")
+
 
 def serverUsedPort(port_no):
-    print("x-"*30, end="x\n")
-    print(f"\n\t{YELLOW}Check whether any other server is running on the\n\t\tsame port you specified: [{port_no}]\n{END}")
-    print("x-"*30, end="x\n\n")
+    print("x-" * 30, end="x\n")
+    print(f"\n\t{YELLOW}Check whether any other server is running on the\n\t\t\
+        same port you specified: [{port_no}]\n{END}")
+    print("x-" * 30, end="x\n\n")
+
 
 def invalidPort():
     print()
-    print('x-'*35, end="x\n")
-    print(f"\n\t{RED}Ports specified must be between 0 and 65535 inclusive\n\t\t\t{BLINK}QUITTING!{END}\n")
-    print('x-'*35, end="x\n\n")
+    print("x-" * 35, end="x\n")
+    print(f"\n\t{RED}Ports specified must be between 0 and 65535 \
+        inclusive\n\t\t\t{BLINK}QUITTING!{END}\n")
+    print("x-" * 35, end="x\n\n")
+
 
 def portGreater(s_port, e_port):
-    print('x-'*32, end="x\n")
-    print(f"\n\t{LIGHT_RED}Starting port [{s_port}] is greater than [{e_port}] ending.{END}\n")
-    print('x-'*32, end="x\n\n")
+    print("x-" * 32, end="x\n")
+    print(f"\n\t{LIGHT_RED}Starting port [{s_port}] is greater \
+        than [{e_port}] ending.{END}\n")
+    print("x-" * 32, end="x\n\n")
+
 
 def noPortMentioned():
     print()
-    print('x-'*25, end="x\n")
+    print("x-" * 25, end="x\n")
     print(f"\n\t{RED}Check whether a port is mentioned.{END}\n")
-    print('x-'*25, end="x\n\n")
+    print("x-" * 25, end="x\n\n")
 
 
-## IP Message
+# IP Message
 def invalidIP():
     print()
-    print('x-'*32, end="x\n")
-    print(f"\n\t{RED}IPv4 address specified must be between 0 and 255,\n\t\tshould only be numbers.\n\t\t\t{BLINK}QUITTING!{END}\n")
-    print('x-'*32, end="x\n\n")
+    print("x-" * 32, end="x\n")
+    print(f"\n\t{RED}IPv4 address specified must be between 0 and 255,\n\t\t\
+        should only be numbers.\n\t\t\t{BLINK}QUITTING!{END}\n")
+    print("x-" * 32, end="x\n\n")
 
 
-## Server Message
+# Server Message
 def serverInit(name):
     print()
-    print('#-'*27, end="#\n")
+    print("#-" * 27, end="#\n")
     print(f"\n\t{name} server initiated ...\n")
-    print('#-'*27, end="#\n")
+    print("#-" * 27, end="#\n")
+
 
 def serverListening(name, host_port):
-    print(f"\n{GREEN}{name} Server Started Listening on {host_port[0]} {host_port[1]}{END}\n")
+    print(f"\n{GREEN}{name} Server Started Listening on {host_port[0]} \
+        {host_port[1]}{END}\n")
+
 
 def receivedMsg(client_address, message):
     print(f"Received from [{client_address}]: {message}")
 
+
 def serverWarning():
-    print('*-'*27, end="*\n")
+    print("*-" * 27, end="*\n")
     print(f"\n\t{YELLOW}Check whether the server is running.{END}\n")
-    print('*-'*27, end="*\n\n")
+    print("*-" * 27, end="*\n\n")
+
 
 def serverError():
-    print("x-"*30, end="x\n")
+    print("x-" * 30, end="x\n")
     print(f"\n\t{RED}500 Internal Server Error{END}\n")
-    print(f"{YELLOW}[Error brief]: The server may be offline or unavailable.{END}")
-    print("x-"*30, end="x\n\n")
+    print(f"{YELLOW}[Error brief]: The server may be offline \
+    or unavailable.{END}")
+    print("x-" * 30, end="x\n\n")
+
 
 def serverShutting(name):
     print()
-    print('x-'*27, end="x\n")
+    print("x-" * 27, end="x\n")
     print(f"\n\t{LIGHT_GREEN}{name} server shutting down ...{END}\n")
-    print('x-'*27, end="x\n\n")
+    print("x-" * 27, end="x\n\n")
 
 
-## Client Message
+# Client Message
 def clientQuit(host_port):
     print()
-    print('x-'*27, end="x\n")
-    print(f'\n\t{LIGHT_BLUE}You quited from the server {host_port[0]}:{host_port[1]}{END}\n')
-    print('x-'*27, end="x\n\n")
+    print("x-" * 27, end="x\n")
+    print(f"\n\t{LIGHT_BLUE}You quited from the server \
+        {host_port[0]}:{host_port[1]}{END}\n")
+    print("x-" * 27, end="x\n\n")
