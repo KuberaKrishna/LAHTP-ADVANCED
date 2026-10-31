@@ -2,53 +2,59 @@ from socket import SO_REUSEADDR, SOL_SOCKET, socket
 from threading import Lock, Thread
 
 # Below modules are created by the author.
-import messageFunc
+import message_func
 from dec import END, LIGHT_WHITE, YELLOW
-from tcpcs import checkPort
+from tcp_cs import check_port
 
 BUFFER = 2048
 
 
-# This function executes the appropriate function based on the user's choice.
-def ChatServerAndClient(ip, port):
-    port = checkPort(port)
-    if port is not False:
+def chat_server_client(ip, port_no):
+    """
+    This function executes the appropriate function based on the user's choice.
+
+    Args:
+        ip (str): The server's IPv4 address.
+        port_no (str): The servers's listening port number.
+    """
+    port_no = check_port(port_no)
+    if port_no is not False:
         global host_port
-        host_port = (ip, port)
-        messageFunc.serviceList()
+        host_port = (ip, port_no)
+        message_func.service_list()
         try:
             try:
                 try:
                     options = int(input(">> "))
                     match options:
                         case 1:
-                            chatServer(host_port)
+                            chat_server(host_port)
                         case 2:
-                            chatClient(host_port)
+                            chat_client(host_port)
                         case _:
-                            messageFunc.invalidOpt()
+                            message_func.invalid_opt()
                 except EOFError:
-                    messageFunc.toolKitAborted()
+                    message_func.toolkit_aborted()
             except ValueError:
-                messageFunc.invalidOpt()
+                message_func.invalid_opt()
         except KeyboardInterrupt:
-            messageFunc.toolKitAborted()
+            message_func.toolkit_aborted()
 
 
 # Chat Server Code
 
+def chat_server(host_port):
+    CLIENT_LOCK = Lock()  # Prevent multiple threads from modifying.
+    CLIENT_LIST = []  # Added connected client.
 
-def chatServer(host_port):
-    CLIENT_LOCK = Lock()
-    """This will prevent multiple threads
-    from modifying shared data at the same time."""
-    CLIENT_LIST = []
-    # This will add the connected client socket."""
+    def broadcast_msg(message, sender=None):
+        """
+        Broadcasts a message to all connected client except the sender.
 
-    """Broadcast the message to all connected clients,
-    excluding the current socket."""
-
-    def broadcastMsg(message, sender=None):
+        Args:
+            message (str): The message to send.
+            sender (str): The client currently sending the message.
+        """
         msg = f"{message}\n".encode()
 
         with CLIENT_LOCK:
@@ -60,10 +66,15 @@ def chatServer(host_port):
             try:
                 client.sendall(msg)
             except OSError:
-                removeClient(client)
+                remove_client(client)
 
-    # Safe removal of the client thread.
-    def removeClient(client_socket):
+    def remove_client(client_socket):
+        """
+        Safe removal of the client thread.
+
+        Args:
+            client_socket: The current client.
+        """
         with CLIENT_LOCK:
             if client_socket in CLIENT_LIST:
                 CLIENT_LIST.remove(client_socket)
@@ -73,18 +84,18 @@ def chatServer(host_port):
             pass
 
     class ClientThread(Thread):
-        """This Class handles multiple clients
-        connecting to the server
-        Parameters:
-            c_socket: client_socket
-            c_address: client address
-        creates separate thread, for each client."
+        """
+        Handles multiple clients connecting
+        to the server and creates a separate thread
+        for each client.
+
+        Args:
+            c_socket: The current client_socket.
+            c_address: The current client address.
         """
 
         def __init__(self, c_socket, c_address):
             super().__init__(daemon=True)
-            """This will terminate the program
-            even if the thread hasn't finished its task."""
 
             self.c_socket = c_socket
             self.c_address = c_address
@@ -98,8 +109,10 @@ def chatServer(host_port):
                 if name == "/skip":
                     self.c_name = "(Anonymous)"
                 elif not name:
-                    print(f"Client got disconnected from\
-                        {self.c_address[0]}:{self.c_address[1]}")
+                    print(
+                        f"Client got disconnected from"
+                        f"{self.c_address[0]}:{self.c_address[1]}"
+                    )
                     return
                 else:
                     self.c_name = name
@@ -107,13 +120,19 @@ def chatServer(host_port):
                 with CLIENT_LOCK:
                     CLIENT_LIST.append(self.c_socket)
 
-                print(f"[{self.c_name}] joined from\
-                    {self.c_address[0]}:{self.c_address[1]}")
-                self.c_socket.sendall(f"Welcome to chat server {self.c_name}!\
-                    Type a message and click Enter.\n\
-                    Type /quit or /exit to leave the chat.\n\n".encode())
-                broadcastMsg(f"*** {self.c_name} has joined\
-                    the chat ***", self.c_socket)
+                print(
+                    f"[{self.c_name}] joined from "
+                    f"{self.c_address[0]}:{self.c_address[1]}"
+                )
+                self.c_socket.sendall(
+                    f"Welcome to chat server {self.c_name}!"
+                    f"Type a message and click Enter.\n"
+                    f"Type /quit or /exit to leave the chat.\n\n".encode()
+                )
+                broadcast_msg(
+                    f"*** {self.c_name} has joined"
+                    f"the chat ***", self.c_socket
+                )
 
                 while True:
                     msg = self.c_socket.recv(BUFFER)
@@ -122,19 +141,23 @@ def chatServer(host_port):
                     if msg:
                         msg = msg.decode().rstrip()
                         if msg.lower() == "/quit" or msg.lower() == "/exit":
-                            removeClient(self.c_socket)
-                        broadcastMsg(f"{LIGHT_WHITE}[{self.c_name}]{END} \
-                            {msg}", self.c_socket)
+                            remove_client(self.c_socket)
+                        broadcast_msg(
+                            f"{LIGHT_WHITE}[{self.c_name}]{END} "
+                            f"{msg}", self.c_socket
+                        )
             except OSError:
                 pass
             finally:
-                removeClient(self.c_socket)
+                remove_client(self.c_socket)
                 if self.c_name:
                     print(f"[{self.c_name}] left the chat")
-                    broadcastMsg(f"*** {self.c_name} left the chat ***")
+                    broadcast_msg(f"*** {self.c_name} left the chat ***")
 
-    # Main code for server
     def main():
+        """
+        Establishing the server.
+        """
         with socket() as server_socket:
             try:
                 try:
@@ -142,31 +165,39 @@ def chatServer(host_port):
                         server_socket.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
                         server_socket.bind(host_port)
                         server_socket.listen()
-                        messageFunc.serverListening("Chat Application", host_port)
+                        message_func.server_listening("Chat Application", host_port)
                         while True:
                             client_socket, client_address = server_socket.accept()
-                            print(f"Client connected from\
-                                {client_address[0]}:{client_address[1]}")
+                            print(
+                                f"Client connected from "
+                                f"{client_address[0]}:{client_address[1]}"
+                            )
                             ClientThread(client_socket, client_address).start()
                     except KeyboardInterrupt:
-                        messageFunc.serverShutting("Chat Application")
+                        message_func.server_shutting("Chat Application")
                     finally:
                         with CLIENT_LOCK:
                             clients = list(CLIENT_LIST)
                         for client in clients:
-                            removeClient(client)
+                            remove_client(client)
                 except PermissionError:
-                    messageFunc.registeredPort(host_port[1])
+                    message_func.registered_port(host_port[1])
             except OSError:
-                messageFunc.serverUsedPort(host_port[1])
+                message_func.server_used_port(host_port[1])
 
     main()
 
 
-# Chat Client Code
-def chatClient(host_port):
-    # Thread is for receiving data from the server
+# Chat client code
+def chat_client(host_port):
+
     class ReceivingThread(Thread):
+        """
+        Receives data from the server.
+
+        Args:
+            socket: The current client socket.
+        """
         def __init__(self, socket):
             super().__init__(daemon=True)
             self.socket = socket
@@ -181,26 +212,30 @@ def chatClient(host_port):
             except OSError:
                 self.socket.close()
 
-    # Main code for client
     def main():
+        """
+        Establishing the client.
+        """
         try:
             try:
                 with socket() as client_socket:
                     client_socket.connect(host_port)
-                    print(f"Connecting to chat server...\n\n{YELLOW}[Note]: \
-                        If you don't see any prompt, hit [enter]{END}\n")
+                    print(
+                        f"Connecting to chat server...\n\n{YELLOW}[Note]: "
+                        f"If you don't see any prompt, hit [enter]{END}\n"
+                    )
                     ReceivingThread(client_socket).start()
                     while True:
                         data = input()
                         if data.lower() == "/exit" or data.lower() == "/quit":
-                            messageFunc.clientQuit(host_port)
+                            message_func.client_quit(host_port)
                             break
                         client_socket.sendall(data.encode())
             except KeyboardInterrupt:
-                messageFunc.clientQuit(host_port)
+                message_func.client_quit(host_port)
             finally:
                 client_socket.close()
         except ConnectionRefusedError:
-            messageFunc.serverWarning()
+            message_func.server_warning()
 
     main()

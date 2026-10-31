@@ -2,79 +2,120 @@ from argparse import ArgumentParser
 from sys import argv
 
 # Below modules are created by the author.
-import bannerFunc
-import chatcs
-import messageFunc
-import portFunc
-import tcpcs
-import udpcs
+import banner_func
+import chat_cs
+import message_func
+import port_func
+import tcp_cs
+import udp_cs
 
-messageFunc.welcomeMsg()
+message_func.welcome_msg()
 
 
-def portScanner(ip, port):
+def port_scanner(ip, port_no):
+    """"
+    Main function for scanning the specified ports.
+
+    Args:
+        ip (str): The IPv4 address of the target.
+        port_no (str): The port or ports to scan.
+    """
     if args.Fast and args.port:
-        messageFunc.unwantedOpt()
+        message_func.unwanted_opt()
     else:
-        portFunc.printHeader(ip)
+        port_func.print_header(ip)
         if not args.port and not args.Fast:
-            portFunc.allPort(ip)
+            port_func.all_port(ip)
         elif args.Fast and not args.port:
-            portFunc.fastMode(ip)
+            port_func.fast_mode(ip)
         else:
-            portFunc.customScan(ip, port)
-        portFunc.printEnd()
+            port_func.custom_scan(ip, port_no)
+        port_func.print_end()
 
 
-def bannerGrabber(ip, port):
+def banner_grabber(ip, port_no):
+    """
+    Main function for grabbing banners from the specified ports.
+
+    Args:
+        ip (str): The IPv4 address of the target.
+        port_no (str): The port or ports to grab banners from.
+    """
     if not args.port and not args.Fast:
-        bannerFunc.printHeader(ip)
-        bannerFunc.allBannerGrabber(ip)
-        bannerFunc.printEnd()
+        banner_func.print_header(ip)
+        banner_func.all_banner_grabber(ip)
+        banner_func.print_end()
     elif not args.Fast:
-        bannerFunc.printHeader(ip)
-        bannerFunc.customGrabber(ip, port)
-        bannerFunc.printEnd()
+        banner_func.print_header(ip)
+        banner_func.custom_grabber(ip, port_no)
+        banner_func.print_end()
     else:
-        messageFunc.unwantedOpt()
+        message_func.unwanted_opt()
 
 
-def tcpClientAndServer(ip, port):
-    if tcpcs.checkPort(port):
-        messageFunc.serverInit("TCP")
-        tcpcs.socketConnectionStream(ip, port)
+def tcp_client_server(ip, port_no):
+    """
+    Establishes a TCP connection between a client and server.
+
+    Args:
+        ip (str): The IPv4 address of the client or server.
+        port_no (str): The port number used for the connection.
+    """
+    if tcp_cs.check_port(port_no):
+        message_func.server_init("TCP")
+        tcp_cs.socket_connection_stream(ip, port_no)
 
 
-def udpClientAndServer(ip, port):
-    if tcpcs.checkPort(port):
-        messageFunc.serverInit("UDP")
-        udpcs.socketConnectionGram(ip, port)
+def udp_client_server(ip, port_no):
+    """
+    Main function for UDP client-server communication.
+
+    Args:
+        ip (str): The IPv4 address of the client or server.
+        port_no (str): The port number used for communication.
+   """
+    if tcp_cs.check_port(port_no):
+        message_func.server_init("UDP")
+        udp_cs.socket_connection_gram(ip, port_no)
 
 
-def chatClientAndServer(ip, port):
-    if tcpcs.checkPort(port):
-        messageFunc.serverInit("Multi Client Chat")
-        chatcs.ChatServerAndClient(ip, port)
+def chat_client_server(ip, port_no):
+    """
+    Establishes TCP connections between multiple clients and a server.
+
+    Args:
+        ip (str): The IPv4 address of the client or server.
+        port_no (str): The port number used for the connections.
+    """
+    if tcp_cs.check_port(port_no):
+        message_func.server_init("Multi Client Chat")
+        chat_cs.chat_server_client(ip, port_no)
 
 
-def distributingFunction(options):
+def distributing_function(options):
+    """
+    Dispatches functions based on the selected option.
+
+    Args:
+        options (int): The option used to select an available service [0-4].
+    """
     match options:
         case 0:
-            portScanner(args.ip, args.port)
+            port_scanner(args.ip, args.port)
         case 1:
-            bannerGrabber(args.ip, args.port)
+            banner_grabber(args.ip, args.port)
         case 2:
-            tcpClientAndServer(args.ip, args.port)
+            tcp_client_server(args.ip, args.port)
         case 3:
-            udpClientAndServer(args.ip, args.port)
+            udp_client_server(args.ip, args.port)
         case 4:
-            chatClientAndServer(args.ip, args.port)
+            chat_client_server(args.ip, args.port)
         case _:
-            messageFunc.invalidArg()
+            message_func.invalid_arg()
 
 
 if len(argv) <= 1:
-    messageFunc.toolKit()
+    message_func.tool_kit()
 
 parser = ArgumentParser(description="A simple Socket Programming Toolkit.")
 parser.add_argument(
@@ -84,7 +125,7 @@ parser.add_argument(
 )
 parser.add_argument(
     "ip",
-    help="Used to specify IPv4 Address.",
+    help="Used to specify IPv4 address.",
 )
 parser.add_argument(
     "-p",
@@ -100,7 +141,7 @@ parser.add_argument(
 args = parser.parse_args()
 options = args.options
 
-if portFunc.checkIpAddress(args.ip):
-    distributingFunction(options)
+if port_func.check_ip_address(args.ip):
+    distributing_function(options)
 else:
-    messageFunc.invalidIP()
+    message_func.invalid_ip()
