@@ -6,6 +6,8 @@
     - `TCP Client and Server`
     - `UDP Client and Server`
     - `Multi-threaded Chat Server`
+## Results:
+    - For this assignment, I scored 91%.
 
 ## ADV2
 * TBA
