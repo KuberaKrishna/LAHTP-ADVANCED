@@ -104,16 +104,16 @@ def duplicate_port_check(port_no):
     Args:
         port_no (int): Port number specified by the user.
     """
-    d_port = 0
+    total_duplicate_port = 0
     seen = set()
     duplicate = set()
     for port in port_no:
         if port in seen:
             duplicate.add(port)
-            d_port += 1
+            total_duplicate_port += 1
         else:
             seen.add(port)
-    return d_port
+    return total_duplicate_port
 
 
 # Port Scanning Function
@@ -169,7 +169,7 @@ def all_port(ip):
 
 
 def hyphen_scan(ip, port_no):
-    """"
+    """
     Used when the user enters a hyphen (-) between port numbers.
 
     Args:

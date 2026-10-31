@@ -13,7 +13,7 @@ message_func.welcome_msg()
 
 
 def port_scanner(ip, port_no):
-    """"
+    """
     Main function for scanning the specified ports.
 
     Args:
@@ -73,7 +73,7 @@ def udp_client_server(ip, port_no):
     Args:
         ip (str): The IPv4 address of the client or server.
         port_no (str): The port number used for communication.
-   """
+    """
     if tcp_cs.check_port(port_no):
         message_func.server_init("UDP")
         udp_cs.socket_connection_gram(ip, port_no)

@@ -23,25 +23,24 @@ def chat_server_client(ip, port_no):
         host_port = (ip, port_no)
         message_func.service_list()
         try:
-            try:
-                try:
-                    options = int(input(">> "))
-                    match options:
-                        case 1:
-                            chat_server(host_port)
-                        case 2:
-                            chat_client(host_port)
-                        case _:
-                            message_func.invalid_opt()
-                except EOFError:
-                    message_func.toolkit_aborted()
-            except ValueError:
-                message_func.invalid_opt()
+            options = int(input(">> "))
+            match options:
+                case 1:
+                    chat_server(host_port)
+                case 2:
+                    chat_client(host_port)
+                case _:
+                    message_func.invalid_opt()
+        except EOFError:
+            message_func.toolkit_aborted()
+        except ValueError:
+            message_func.invalid_opt()
         except KeyboardInterrupt:
             message_func.toolkit_aborted()
 
 
 # Chat Server Code
+
 
 def chat_server(host_port):
     CLIENT_LOCK = Lock()  # Prevent multiple threads from modifying.
@@ -143,8 +142,8 @@ def chat_server(host_port):
                         if msg.lower() == "/quit" or msg.lower() == "/exit":
                             remove_client(self.c_socket)
                         broadcast_msg(
-                            f"{LIGHT_WHITE}[{self.c_name}]{END} "
-                            f"{msg}", self.c_socket
+                            f"{LIGHT_WHITE}[{self.c_name}]{END} {msg} ",
+                            self.c_socket
                         )
             except OSError:
                 pass
@@ -154,41 +153,41 @@ def chat_server(host_port):
                     print(f"[{self.c_name}] left the chat")
                     broadcast_msg(f"*** {self.c_name} left the chat ***")
 
-    def main():
+    def chat_server_main():
         """
         Establishing the server.
         """
         with socket() as server_socket:
             try:
-                try:
-                    try:
-                        server_socket.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
-                        server_socket.bind(host_port)
-                        server_socket.listen()
-                        message_func.server_listening("Chat Application", host_port)
-                        while True:
-                            client_socket, client_address = server_socket.accept()
-                            print(
-                                f"Client connected from "
-                                f"{client_address[0]}:{client_address[1]}"
-                            )
-                            ClientThread(client_socket, client_address).start()
-                    except KeyboardInterrupt:
-                        message_func.server_shutting("Chat Application")
-                    finally:
-                        with CLIENT_LOCK:
-                            clients = list(CLIENT_LIST)
-                        for client in clients:
-                            remove_client(client)
-                except PermissionError:
-                    message_func.registered_port(host_port[1])
+                server_socket.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
+                server_socket.bind(host_port)
+                server_socket.listen()
+                message_func.server_listening("Chat Application", host_port)
+                while True:
+                    client_socket, client_address = server_socket.accept()
+                    print(
+                        f"Client connected from "
+                        f"{client_address[0]}:{client_address[1]}"
+                    )
+                    ClientThread(client_socket, client_address).start()
+            except PermissionError:
+                message_func.registered_port(host_port[1])
             except OSError:
                 message_func.server_used_port(host_port[1])
+            except KeyboardInterrupt:
+                message_func.server_shutting("Chat Application")
+            finally:
+                with CLIENT_LOCK:
+                    clients = list(CLIENT_LIST)
+                for client in clients:
+                    remove_client(client)
 
-    main()
+    chat_server_main()
 
 
 # Chat client code
+
+
 def chat_client(host_port):
 
     class ReceivingThread(Thread):
@@ -198,6 +197,7 @@ def chat_client(host_port):
         Args:
             socket: The current client socket.
         """
+
         def __init__(self, socket):
             super().__init__(daemon=True)
             self.socket = socket
@@ -212,30 +212,29 @@ def chat_client(host_port):
             except OSError:
                 self.socket.close()
 
-    def main():
+    def chat_client_main():
         """
         Establishing the client.
         """
         try:
-            try:
-                with socket() as client_socket:
-                    client_socket.connect(host_port)
-                    print(
-                        f"Connecting to chat server...\n\n{YELLOW}[Note]: "
-                        f"If you don't see any prompt, hit [enter]{END}\n"
-                    )
-                    ReceivingThread(client_socket).start()
-                    while True:
-                        data = input()
-                        if data.lower() == "/exit" or data.lower() == "/quit":
-                            message_func.client_quit(host_port)
-                            break
-                        client_socket.sendall(data.encode())
-            except KeyboardInterrupt:
-                message_func.client_quit(host_port)
-            finally:
-                client_socket.close()
+            with socket() as client_socket:
+                client_socket.connect(host_port)
+                print(
+                    f"Connecting to chat server...\n\n{YELLOW}[Note]: "
+                    f"If you don't see any prompt, hit [enter]{END}\n"
+                )
+                ReceivingThread(client_socket).start()
+                while True:
+                    data = input()
+                    if data.lower() == "/exit" or data.lower() == "/quit":
+                        message_func.client_quit(host_port)
+                        break
+                    client_socket.sendall(data.encode())
         except ConnectionRefusedError:
+            message_func.client_quit(host_port)
+        except KeyboardInterrupt:
             message_func.server_warning()
+        finally:
+            client_socket.close()
 
-    main()
+    chat_client_main()

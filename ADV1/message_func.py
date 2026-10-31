@@ -130,7 +130,7 @@ def registered_port(port_no):
     print(
         f"\n\t{RED}Server didn't start! You mentioned well-known port '"
         f"{port_no}'\n\t\tthat you don't have permission to use.{END}\n"
-        )
+    )
     print("x-" * 35, end="x\n\n")
 
 

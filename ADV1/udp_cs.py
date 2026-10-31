@@ -22,27 +22,24 @@ def socket_connection_gram(ip, port_no):
         host_port = (ip, port_no)
         message_func.service_list()
         try:
-            try:
-                try:
-                    options = int(input(">> "))
-                    match options:
-                        case 1:
-                            socket_server(host_port)
-                        case 2:
-                            client_socket(host_port)
-                        case _:
-                            message_func.invalid_opt()
-                except EOFError:
-                    message_func.toolkit_aborted()
-            except ValueError:
-                message_func.invalid_opt()
-        except KeyboardInterrupt:
+            options = int(input(">> "))
+            match options:
+                case 1:
+                    socket_server(host_port)
+                case 2:
+                    client_socket(host_port)
+                case _:
+                    message_func.invalid_opt()
+        except ValueError:
+            message_func.invalid_opt()
+        except (KeyboardInterrupt, EOFError):
             message_func.toolkit_aborted()
 
 
 # Socket Code
-
 # Server Socket code
+
+
 def socket_server(host_port):
     """
     Main function for starting the server socket.
@@ -52,24 +49,24 @@ def socket_server(host_port):
         host_port (tuple): Server's listening IPv4 address and port number.
     """
     try:
-        try:
-            try:
-                with socket(AF_INET, SOCK_DGRAM) as server_socket:
-                    server_socket.bind(host_port)
-                    message_func.server_listening("UDP", host_port)
-                    while True:
-                        data, client_address = server_socket.recvfrom(BUFFER)
-                        message = data.decode("utf-8").rstrip()
-                        message_func.received_msg(client_address[0], message)
-            except KeyboardInterrupt:
-                message_func.server_shutting("UDP")
-        except PermissionError:
-            message_func.registered_port(host_port[1])
+        with socket(AF_INET, SOCK_DGRAM) as server_socket:
+            server_socket.bind(host_port)
+            message_func.server_listening("UDP", host_port)
+            while True:
+                data, client_address = server_socket.recvfrom(BUFFER)
+                message = data.decode("utf-8").rstrip()
+                message_func.received_msg(client_address[0], message)
+    except KeyboardInterrupt:
+        message_func.server_shutting("UDP")
+    except PermissionError:
+        message_func.registered_port(host_port[1])
     except OSError:
         message_func.server_used_port(host_port[1])
 
 
 # Client socket code
+
+
 def client_socket(host_port):
     """
     Main function for starting the client socket.
