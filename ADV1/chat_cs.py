@@ -3,7 +3,7 @@ from threading import Lock, Thread
 
 # Below modules are created by the author.
 import message_func
-from dec import END, LIGHT_WHITE, YELLOW
+from dec import END, LIGHT_WHITE
 from tcp_cs import check_port
 
 BUFFER = 2048
@@ -169,6 +169,7 @@ def chat_server(host_port):
                         f"Client connected from "
                         f"{client_address[0]}:{client_address[1]}"
                     )
+                    client_socket.sendall(b"\n")
                     ClientThread(client_socket, client_address).start()
             except PermissionError:
                 message_func.registered_port(host_port[1])
@@ -219,10 +220,6 @@ def chat_client(host_port):
         try:
             with socket() as client_socket:
                 client_socket.connect(host_port)
-                print(
-                    f"Connecting to chat server...\n\n{YELLOW}[Note]: "
-                    f"If you don't see any prompt, hit [enter]{END}\n"
-                )
                 ReceivingThread(client_socket).start()
                 while True:
                     data = input()
