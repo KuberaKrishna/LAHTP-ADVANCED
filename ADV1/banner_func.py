@@ -83,7 +83,7 @@ def banner_grabber(ip, port_no):
                 banner = sock.recv(BUFFER)
                 if banner:
                     banner_grabbed += 1
-                    banner = banner.decode("UTF-8").strip()
+                    banner = banner.decode().strip()
                     print(f"{LIGHT_WHITE}{port_no} | {banner}{END}")
             else:
                 no_banner_grabbed += 1
@@ -148,7 +148,7 @@ def print_end():
     Displays a conclusion message
     """
     end_msg = (
-        f"\nBanner Grabbing done: Banner Grabbed: {banner_grabbed},"
+        f"\nBanner Grabbing done: Banner Grabbed: {banner_grabbed}, "
         f"Closed ports: {no_banner_grabbed}"
     )
     dup_msg = f"Duplicate ports: {duplicate_port}\n"

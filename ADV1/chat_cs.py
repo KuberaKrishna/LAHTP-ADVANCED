@@ -3,7 +3,7 @@ from threading import Lock, Thread
 
 # Below modules are created by the author.
 import message_func
-from dec import END, LIGHT_WHITE
+from dec import END, LIGHT_GREEN, LIGHT_WHITE
 from tcp_cs import check_port
 
 BUFFER = 2048
@@ -19,7 +19,7 @@ def chat_server_client(ip, port_no):
     """
     port_no = check_port(port_no)
     if port_no is not False:
-        global host_port
+        # global host_port
         host_port = (ip, port_no)
         message_func.service_list()
         try:
@@ -31,11 +31,9 @@ def chat_server_client(ip, port_no):
                     chat_client(host_port)
                 case _:
                     message_func.invalid_opt()
-        except EOFError:
-            message_func.toolkit_aborted()
         except ValueError:
             message_func.invalid_opt()
-        except KeyboardInterrupt:
+        except (KeyboardInterrupt, EOFError):
             message_func.toolkit_aborted()
 
 
@@ -102,7 +100,9 @@ def chat_server(host_port):
 
         def run(self):
             try:
-                self.c_socket.sendall(b"Enter your name: ")
+                self.c_socket.sendall(
+                    f"{LIGHT_WHITE}Enter your name: {END}".encode()
+                )
                 name = self.c_socket.recv(BUFFER).decode().rstrip()
 
                 if name == "/skip":
@@ -115,7 +115,10 @@ def chat_server(host_port):
                     return
                 else:
                     self.c_name = name
-
+                self.c_socket.sendall(
+                    f"\n{LIGHT_GREEN}Welcome {self.c_name}! "
+                    f"to the Chat Server{END}\n\n".encode()
+                )
                 with CLIENT_LOCK:
                     CLIENT_LIST.append(self.c_socket)
 
@@ -123,13 +126,8 @@ def chat_server(host_port):
                     f"[{self.c_name}] joined from "
                     f"{self.c_address[0]}:{self.c_address[1]}"
                 )
-                self.c_socket.sendall(
-                    f"Welcome to chat server {self.c_name}!"
-                    f"Type a message and click Enter.\n"
-                    f"Type /quit or /exit to leave the chat.\n\n".encode()
-                )
                 broadcast_msg(
-                    f"*** {self.c_name} has joined"
+                    f"*** {self.c_name} has joined "
                     f"the chat ***", self.c_socket
                 )
 
@@ -169,14 +167,16 @@ def chat_server(host_port):
                         f"Client connected from "
                         f"{client_address[0]}:{client_address[1]}"
                     )
-                    client_socket.sendall(b"\n")
+                    client_socket.sendall(
+                        message_func.client_connect(host_port)
+                    )
                     ClientThread(client_socket, client_address).start()
+            except KeyboardInterrupt:
+                message_func.server_shutting("Multi Client Server")
             except PermissionError:
                 message_func.registered_port(host_port[1])
             except OSError:
                 message_func.server_used_port(host_port[1])
-            except KeyboardInterrupt:
-                message_func.server_shutting("Chat Application")
             finally:
                 with CLIENT_LOCK:
                     clients = list(CLIENT_LIST)
@@ -227,9 +227,11 @@ def chat_client(host_port):
                         message_func.client_quit(host_port)
                         break
                     client_socket.sendall(data.encode())
-        except ConnectionRefusedError:
-            message_func.client_quit(host_port)
         except KeyboardInterrupt:
+            message_func.client_quit(host_port)
+        except OSError:
+            message_func.server_error()
+        except ConnectionRefusedError:
             message_func.server_warning()
         finally:
             client_socket.close()

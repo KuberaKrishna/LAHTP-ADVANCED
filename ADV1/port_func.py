@@ -252,8 +252,8 @@ def print_end():
     Displays a conclusion message.
     """
     end_msg = (
-        f"\nPort Scan done: Scanned ports: {scanned_port},"
-        f" Closed ports: {closed_port}"
+        f"\nPort Scan done: Scanned ports: {scanned_port}, "
+        f"Closed ports: {closed_port}"
     )
     dup_msg = f"Duplicate ports: {duplicate_port}\n"
     if duplicate_port != 0:

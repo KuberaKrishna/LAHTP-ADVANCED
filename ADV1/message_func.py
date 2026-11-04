@@ -28,24 +28,20 @@ def welcome_msg():
     print(" ██████ ▀████▀ ▀█████ ██  ██ ▀█████   ██")
     print()
     print(
-        " ▄████▄ ▄████▄ ▄████▄ ▄█████"
-        "▄████▄   ███   ▄█▄ ▄█▄ ▄█▄ ▄█▄ "
-        "██ ▄█▄  █▄ ▄█████"
+        " ▄████▄ ▄████▄ ▄████▄ ▄█████ ▄████▄   ███   ▄█▄ "
+        "▄█▄ ▄█▄ ▄█▄  ██ ▄█▄  █▄ ▄█████"
     )
     print(
-        " ██  ██ ██  ██ ██  ██ ██ ▄▄▄"
-        "██  ██  ██ ██  ██▀█▀██ ██▀█▀██ "
-        "██ ██▀█ ██ ██ ▄▄▄"
+        " ██  ██ ██  ██ ██  ██ ██ ▄▄▄ ██  ██  ██ ██  "
+        "██▀█▀██ ██▀█▀██  ██ ██▀█ ██ ██ ▄▄▄"
     )
     print(
-        " █████▀ █████▀ ██  ██ ██ ▀ █"
-        "█████▀ ██▀▀▀██ ██ ▀ ██ ██ ▀ ██ "
-        "██ ██ █▄██ ██ ▀ █"
+        " █████▀ █████▀ ██  ██ ██ ▀ █ █████▀ ██▀▀▀██ "
+        "██ ▀ ██ ██ ▀ ██  ██ ██ █▄██ ██ ▀ █"
     )
     print(
-        " ██     ██ ▀█▄ ▀████▀ ▀█████"
-        "██ ▀█▄  ██ ██  ▀█   █▀ ▀█   █▀ "
-        "██ ▀█  ██▀ ▀█████"
+        " ██     ██ ▀█▄ ▀████▀ ▀█████ ██ ▀█▄  ██ ██  "
+        "▀█   █▀ ▀█   █▀  ██ ▀█  ██▀ ▀█████"
     )
     print()
     print(" ▄████▄ ▄████▄ ▄████▄ ▄█     ██  ██  ██ ▄████▄")
@@ -279,6 +275,21 @@ def server_shutting(service_name):
 
 
 # Client Message
+
+def client_connect(host_port):
+    """
+    Displays a message when the client connects to the server.
+
+    Args:
+        host_port (tuple): Client's IP address and port.
+    """
+    return (
+        f"\n{GREEN}Connected to server on port {host_port[1]}{END}\n\n"
+        f"Make your first move and click Enter.\n"
+        f"Type '/quit' or '/exit' to leave the chat.\n\n".encode()
+    )
+
+
 def client_quit(host_port):
     """
     Displays a message when the client disconnects from the server.

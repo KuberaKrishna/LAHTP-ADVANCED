@@ -49,11 +49,9 @@ def socket_connection_stream(ip, port_no):
                     client_socket(host_port)
                 case _:
                     message_func.invalid_opt()
-        except EOFError:
-            message_func.toolkit_aborted()
         except ValueError:
             message_func.invalid_opt()
-        except KeyboardInterrupt:
+        except (KeyboardInterrupt, EOFError):
             message_func.toolkit_aborted()
 
 
@@ -81,10 +79,7 @@ def socket_server(host_port):
                 f"Client connected: "
                 f"{client_address[0]}:{client_address[1]}\n"
             )
-            client_socket.sendall(
-                f"\nConnected to server on port "
-                f"{host_port[1]}".encode()
-            )
+            client_socket.sendall(message_func.client_connect(host_port))
             while True:
                 data = client_socket.recv(
                     BUFFER
@@ -119,7 +114,7 @@ def client_socket(host_port):
             client_socket.connect(host_port)
             srv_msg = client_socket.recv(BUFFER)
             if srv_msg:
-                print(f"{GREEN}{srv_msg.decode().rstrip()}{END}")
+                print(f"{GREEN}{srv_msg.decode().rstrip()}{END}\n")
                 while True:
                     data = input(
                         f"{LIGHT_WHITE}"
@@ -129,6 +124,7 @@ def client_socket(host_port):
                         data.lower() == "/quit"
                         or data.lower() == "/exit"
                     ):
+                        message_func.client_quit(host_port)
                         break
                     client_socket.sendall(data.encode())
     except KeyboardInterrupt:
@@ -137,3 +133,5 @@ def client_socket(host_port):
         message_func.server_error()
     except ConnectionRefusedError:
         message_func.server_warning()
+    finally:
+        client_socket.close()

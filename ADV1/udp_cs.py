@@ -54,7 +54,7 @@ def socket_server(host_port):
             message_func.server_listening("UDP", host_port)
             while True:
                 data, client_address = server_socket.recvfrom(BUFFER)
-                message = data.decode("utf-8").rstrip()
+                message = data.decode().rstrip()
                 message_func.received_msg(client_address[0], message)
     except KeyboardInterrupt:
         message_func.server_shutting("UDP")
@@ -80,6 +80,7 @@ def client_socket(host_port):
             while True:
                 data = input(f"{LIGHT_WHITE}Enter something:{END} ")
                 if data.lower() == "/quit" or data.lower() == "/exit":
+                    message_func.client_quit(host_port)
                     break
                 client_socket.sendto(data.encode("utf-8"), host_port)
     except KeyboardInterrupt:
