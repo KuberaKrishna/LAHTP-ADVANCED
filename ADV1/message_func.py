@@ -304,3 +304,18 @@ def client_quit(host_port):
         f"{host_port[0]}:{host_port[1]}{END}\n"
     )
     print("x-" * 27, end="x\n\n")
+
+# File Message
+
+def file_not_found(file_name):
+    """
+    Display a message if the file is not present in the current
+    working directory when attempting to print the results.
+    """
+    print("x-" * 24, end="x\n")
+    print(
+        f"\n\t{LIGHT_RED}File not found: \"{file_name}\"\n\n\tPlease check whether you are in"
+        f" the\n\ttoolkit's directory.\n{END}"
+    )
+    print("x-" * 24, end="x\n")
+    exit(1)

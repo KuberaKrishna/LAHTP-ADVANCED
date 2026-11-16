@@ -148,10 +148,13 @@ def fast_mode(ip):
     Args:
         ip (str): The IPv4 address of the target.
     """
-    with open(PORTS_100_FILE, newline="") as csvfile:
-        port_svc_file = reader(csvfile)
-        for port in port_svc_file:
-            port_scan(ip, port[0])
+    try:
+        with open(PORTS_100_FILE, newline="") as csvfile:
+            port_svc_file = reader(csvfile)
+            for port in port_svc_file:
+                port_scan(ip, port[0])
+    except FileNotFoundError:
+        message_func.file_not_found(PORTS_100_FILE)
 
 
 def all_port(ip):
@@ -225,12 +228,14 @@ def known_100_ports(port_no):
     Args:
         port_no (str): The port or ports are scanned.
     """
-    with open(PORTS_100_FILE, newline="") as csvfile:
-        port = reader(csvfile)
-        for row in port:
-            if port_no == int(row[0]):
-                return row
-
+    try:
+        with open(PORTS_100_FILE, newline="") as csvfile:
+            port = reader(csvfile)
+            for row in port:
+                if port_no == int(row[0]):
+                    return row
+    except FileNotFoundError:
+        message_func.file_not_found(PORTS_100_FILE)
 
 def print_result(port_no):
     """
