@@ -1,73 +1,73 @@
 1,tcp,tcpmux
-7,tcp/UDP,Echo
-9,tcp/UDP,Discard
-13,tcp/UDP,Daytime
-19,tcp/UDP,Chargen
+7,tcp/udp,Echo
+9,tcp/udp,Discard
+13,tcp/udp,Daytime
+19,tcp/udp,Chargen
 20,tcp,FTP (Data)
 21,tcp,FTP (Control)
 22,tcp,SSH
 23,tcp,Telnet
 25,tcp,SMTP
-37,tcp/UDP,Time
-42,tcp/UDP,Nameserver
+37,tcp/udp,Time
+42,tcp/udp,Nameserver
 43,tcp,Whois
-49,tcp/UDP,TACACS+
-53,tcp/UDP,DNS
-67,UDP,DHCP (Server)
-68,UDP,DHCP (Client)
-69,UDP,TFTP
+49,tcp/udp,TACACS+
+53,tcp/udp,DNS
+67,udp,DHCP (Server)
+68,udp,DHCP (Client)
+69,udp,TFTP
 70,tcp,Gopher
 79,tcp,Finger
 80,tcp,HTTP
-88,tcp/UDP,Kerberos
+88,tcp/udp,Kerberos
 102,tcp,ISO-TSAP
 110,tcp,POP3
-111,tcp/UDP,RPCbind
+111,tcp/udp,RPCbind
 113,tcp,Ident
 119,tcp,NNTP
-123,UDP,NTP
-135,tcp/UDP,MSRPC
-137,UDP,NetBIOS-NS
-138,UDP,NetBIOS-DGM
+123,udp,NTP
+135,tcp/udp,MSRPC
+137,udp,NetBIOS-NS
+138,udp,NetBIOS-DGM
 139,tcp,NetBIOS-SSN
 143,tcp,IMAP
-161,UDP,SNMP
-162,UDP,SNMP-Trap
-177,tcp/UDP,XDMCP
+161,udp,SNMP
+162,udp,SNMP-Trap
+177,tcp/udp,XDMCP
 179,tcp,BGP
-201,tcp/UDP,AppleTalk
+201,tcp/udp,AppleTalk
 264,tcp,BGMP
-318,tcp/UDP,TSP
-389,tcp/UDP,LDAP
+318,tcp/udp,TSP
+389,tcp/udp,LDAP
 443,tcp,HTTPS
 445,tcp,Microsoft-DS (SMB)
 465,tcp,SMTPS
-500,UDP,ISAKMP
+500,udp,ISAKMP
 512,tcp,Rexec
 513,tcp,Rlogin
-514,UDP,Syslog
+514,udp,Syslog
 515,tcp,LPD
-520,UDP,RIP
+520,udp,RIP
 548,tcp,AFP
-554,tcp/UDP,RTSP
-563,tcp/UDP,NNTPS
+554,tcp/udp,RTSP
+563,tcp/udp,NNTPS
 587,tcp,SMTP (Submission)
-631,tcp/UDP,IPP
-636,tcp/UDP,LDAPS
+631,tcp/udp,IPP
+636,tcp/udp,LDAPS
 873,tcp,Rsync
 990,tcp,FTPS
 993,tcp,IMAPS
 995,tcp,POP3S
 1025,tcp,NFS-or-CustomRPC
 1080,tcp,SOCKS Proxy
-1194,tcp/UDP,OpenVPN
+1194,tcp/udp,OpenVPN
 1433,tcp,MSSQL
-1434,UDP,MSSQL-Monitor
+1434,udp,MSSQL-Monitor
 1521,tcp,Oracle TNS
 1723,tcp,PPTP
-1812,UDP,RADIUS-Auth
-1813,UDP,RADIUS-Acct
-2049,tcp/UDP,NFS
+1812,udp,RADIUS-Auth
+1813,udp,RADIUS-Acct
+2049,tcp/udp,NFS
 2121,tcp,CCProxy
 3128,tcp,Squid Proxy
 3306,tcp,MySQL
