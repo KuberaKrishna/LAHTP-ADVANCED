@@ -76,7 +76,6 @@ def banner_grabber(ip, port_no):
     host_port = (ip, int(port_no))  # will make sure the 'port_no' is int.
     try:
         with socket() as sock:
-            sock = socket()
             sock.settimeout(6)
             conn_status = sock.connect_ex(host_port)
             if conn_status == 0:
