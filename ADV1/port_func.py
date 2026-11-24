@@ -131,7 +131,6 @@ def port_scan(ip, port_no):
     port_no = int(port_no)  # make sure the port is int
     host_port = (ip, port_no)
     with socket() as sock:
-        sock = socket()
         sock.settimeout(2)
         status = sock.connect_ex(host_port)
         if status == 0:
