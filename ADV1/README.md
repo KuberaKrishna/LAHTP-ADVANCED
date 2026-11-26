@@ -8,7 +8,7 @@
     * [3] UDP Client/Server
     * [4] Chat Application(Multi-threaded)
 ## ⚠️ Disclaimer
-* This toolkit is intended for educational purposes only. Do not use it against systems you do not own or have explicit permission to test.(If you do, your activity may be recorded in their logs).
+* This toolkit is intended for educational purposes only. Do not use it against systems you do not own or have explicit permission to test. (If you do, your activity may be recorded in their logs).
 
 ## ⚙️ Before that ...
 * You need to install `csv` module.
@@ -16,7 +16,7 @@
 
 
 # Instructions
-* `How does this tool work?`: You need to mention the necessary arguments, options, or flags required to use the tool.
+* `How does this tool work?` You need to mention the necessary arguments, options, or flags required to use the tool.
 * `Read all the instructions carefully to use the toolkit effectively.`
 ### General Command Usage
 Example Command| Purpose
@@ -25,7 +25,7 @@ python3 <program_name.py> | List all the availale tools.
 python3 <program_name.py> --help | Shows available arguments and options to use.
 
 ## [0] Port Scanner
-* This is scan is noisy, supports only TCP connect scans, which works by completing the TCP 3-way handshake.
+* This scan is noisy and supports only TCP connect scans, which work by completing the TCP 3-way handshake.
 * This will by default try to connect all the ports, if `-p` or `--port` and `-F` or `--Fast` flag is not mentioned.
 * Service names are identified using a CSV file containing the 100 most common port numbers, their corresponding services, and their protocols for better understanding.
 * We can also use `-F` or `--Fast` to enable fast mode and decrease the number of scanned ports from all ports to 100 most common ports.
