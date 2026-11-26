@@ -1,10 +1,10 @@
 # PRESENTING MY LAHTP ADVANCED ASSIGNMENT FOR SNA
 
 ## ⚠️ Disclaimer
-This toolkit is intended for educational purposes only. Do not use it against systems you do not own or have explicit permission to test.(If you do, your activity may be recorded in their logs).
+This toolkit is intended for educational purposes only. Do not use it against systems you do not own or have explicit permission to test. (If you do, your activity may be recorded in their logs).
 
 ## ADV1
-* A simple socket programming toolkit which do the following functions:
+* A simple socket programming toolkit that does the following functions:
     - `TCP Port Scanner (Connect Scan)`
     - `TCP Banner Grabber`
     - `TCP Client and Server`
